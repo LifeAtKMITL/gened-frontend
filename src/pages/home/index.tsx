@@ -7,7 +7,7 @@ import Gened from './components/gened';
 
 const Home = () => {
   return (
-    <div className='w-screen min-h-screen py-6 bg-background'>
+    <div className='w-screen min-h-screen pt-6 pb-14 bg-background'>
       <HomeHeader />
       <SubjectDrawer />
       <SubjectAccordion />
