@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
+import { FaArrowLeft } from 'react-icons/fa';
 
 import Drawer from '@mui/material/Drawer';
 import DrawerContent from './DrawerContent';
@@ -31,7 +32,13 @@ const SubjectDrawer = () => {
       </header>
 
       <Drawer anchor={anchor} open={isToggle} onClose={toggleDrawer(false)}>
-        <DrawerContent />
+        <div className='h-screen min-h-[500px] w-screen px-4 py-6 bg-background text-white'>
+          <button className='text-white mb-8' onClick={toggleDrawer(false)}>
+            <FaArrowLeft />
+          </button>
+
+          <DrawerContent />
+        </div>
       </Drawer>
     </div>
   );

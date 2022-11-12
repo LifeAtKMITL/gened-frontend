@@ -35,3 +35,48 @@
 .sukhumvit-bold {
   font-family: 'sukhumvit-bold';
 }
+
+/* TextField */
+
+.form .MuiTextField-root,
+.MuiOutlinedInput-root {
+  border: 0px;
+  border-radius: 1.4rem !important;
+}
+
+.form .MuiInputBase-root {
+  background-color: #242227;
+}
+
+.form .MuiTextField-root input {
+  color: #fff;
+  padding: 0.4rem 0 !important;
+  padding-left: 1rem !important;
+  font-family: 'sukhumvit' !important;
+  text-transform: capitalize;
+}
+
+.form .MuiOutlinedInput-root.Mui-focused fieldset {
+  border: none;
+}
+
+.form .MuiSvgIcon-root {
+  color: white;
+}
+
+/* Autocomplete Dropdown */
+
+.form .MuiPaper-root {
+  margin-top: 0.6rem;
+  border-radius: 10px;
+  background-color: #141519;
+  border-radius: 1.4rem !important;
+}
+
+.form .MuiAutocomplete-listbox {
+  font-family: 'sukhumvit';
+  background-color: #242227;
+  color: white;
+  border-radius: 20px;
+  text-transform: capitalize;
+}

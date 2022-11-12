@@ -1,23 +1,51 @@
 import { DropdownSearch } from 'components/inputs';
-import React from 'react';
+import useSubject from 'hooks/useSubject';
+import React, { SetStateAction, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { transformOptions } from 'services/subject';
+import { ISubject } from 'types/subject';
+import axios from 'utils/axios';
 
-const AddSubjectForm = () => {
+interface IAddSubjectForm {
+  // setSubjectCards: React.Dispatch<SetStateAction<ISubject[]>>;
+  // setSubjectSelected: React.Dispatch<SetStateAction<ISubject | undefined>>;
+  setLoading: React.Dispatch<SetStateAction<boolean>>;
+}
+
+const AddSubjectForm = ({ setLoading }: IAddSubjectForm) => {
   const {
     control,
     watch,
     formState: { errors },
   } = useForm();
-  const options = {};
+  const { options } = useSubject();
+
+  /* Watching Subject */
+  const watchSubject = watch('subject');
+  useEffect(() => {
+    if (!watchSubject) return;
+
+    fetchSubject(watchSubject.value);
+  }, [watchSubject]);
+
+  /* Fetching Data */
+  const fetchSubject = async (id: string) => {
+    setLoading(true);
+    const { data: subjects } = await axios.get<ISubject>(`/subject/${id}`);
+    console.log(subjects);
+    setLoading(false);
+
+    // setSubjectCards(subjects);
+    // setSubjectSelected(subjects[0]);
+  };
 
   return (
-    <div>
+    <div className='form'>
       <DropdownSearch
         control={control}
         name='subject'
         label='ค้นหาจากชื่อหรือรหัสวิชา'
-        options={transformOptions(options as any)}
+        options={transformOptions(options)}
         error={errors['subject']}
       />
     </div>
