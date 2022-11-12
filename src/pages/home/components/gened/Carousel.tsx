@@ -9,10 +9,10 @@ const Carousel = ({ gened }: ICarousel) => {
   return (
     <>
       {gened.map((subject, index) => (
-        <div key={index} className='bg-background border border-card'>
+        <div key={subject.subjectId + ' ' + subject.sec} className='bg-background border border-card rounded-lg'>
           <div className='w-[85vw] p-4 text-white'>
             <header>
-              <h2 className='text-primary truncate'>{subject.name}</h2>
+              <h2 className='text-primary truncate w-[89%]'>{subject.name}</h2>
               <p>
                 {subject.subjectId} <span className='text-[12px]'>( {subject.credit} หน่วยกิต )</span>
               </p>

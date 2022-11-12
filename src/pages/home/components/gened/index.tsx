@@ -14,9 +14,9 @@ const Gened = () => {
   const [loadingGened, setLoadingGened] = useState(false);
 
   const fetchGened = async () => {
-    if (subjects.length === 0) {
-      return;
-    }
+    // if (subjects.length === 0) {
+    //   return;
+    // }
 
     setLoadingGened(true);
 
@@ -60,7 +60,7 @@ const Gened = () => {
             <DisableBox line1='ยังไม่มีวิชาเลือก' line2 />
           </div>
         ) : (
-          <div className='w-screen h-full px-5 flex overflow-y-auto gap-2'>
+          <div className='w-screen h-full px-5 flex overflow-y-auto gap-2 '>
             <Carousel gened={gened} />
           </div>
         )}
