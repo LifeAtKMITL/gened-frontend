@@ -1,7 +1,8 @@
-import SubjectAccordion from 'components/subject/accordion';
-import SubjectDrawer from 'components/subject/drawer';
 import React from 'react';
+
 import HomeHeader from './components/header';
+import SubjectAccordion from './components/subject/accordion';
+import SubjectDrawer from './components/subject/drawer';
 
 const Home = () => {
   return (
