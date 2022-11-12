@@ -1,24 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IClass } from 'types/subject';
-import { HiOutlineHeart } from 'react-icons/hi';
+import { HiOutlineHeart, HiHeart } from 'react-icons/hi';
 import axios from 'utils/axios';
+import { classNames } from 'utils/classNames';
+import useToast from 'hooks/useToast';
 
 interface IGenedCard {
   subject: IClass;
 }
 
 const GenedCard = ({ subject }: IGenedCard) => {
+  const { toggleToast } = useToast();
+  const [isFav, setIsFav] = useState(false);
+
   const handleFavorite = (subjectId: string, sec: string) => async () => {
-    await axios.put(
-      '/user/subject/favorite',
-      { subjectId, sec },
-      {
-        headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwZjk1NTdiMDlmMTI0N2U0ZGUyYmYzYjFjYjcyNjc5ZSIsImlhdCI6MTY2ODAwMTgyOSwiZXhwIjoxNjcwNTkzODI5fQ.hj-m3KVnEx6hwPjJGOqkAnBZIFocOB8B8Ey_j5uuoTA',
-        },
-      },
-    );
+    if (!isFav) {
+      toggleToast(true, 'เพิ่มเข้าในรายการโปรด');
+    }
+
+    setIsFav((prev) => !prev);
+    // await axios.put(
+    //   '/user/subject/favorite',
+    //   { subjectId, sec },
+    //   {
+    //     headers: {
+    //       Authorization:
+    //         'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwZjk1NTdiMDlmMTI0N2U0ZGUyYmYzYjFjYjcyNjc5ZSIsImlhdCI6MTY2ODAwMTgyOSwiZXhwIjoxNjcwNTkzODI5fQ.hj-m3KVnEx6hwPjJGOqkAnBZIFocOB8B8Ey_j5uuoTA',
+    //     },
+    //   },
+    // );
   };
 
   return (
@@ -46,8 +56,8 @@ const GenedCard = ({ subject }: IGenedCard) => {
           <h4 className='text-zinc-300 text-sm'>{subject.finalDateTime_v || 'ไม่มีการสอบกลางภาค'}</h4>
         </div>
 
-        <button onClick={handleFavorite(subject.subjectId, subject.sec)}>
-          <HiOutlineHeart className='absolute top-4 right-4 text-lg' />
+        <button onClick={handleFavorite(subject.subjectId, subject.sec)} className='absolute top-4 right-4 text-lg'>
+          {isFav ? <HiHeart className='text-primary' /> : <HiOutlineHeart className='' />}
         </button>
       </div>
     </div>
