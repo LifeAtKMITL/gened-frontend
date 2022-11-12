@@ -10,7 +10,7 @@ const initialState: IToastState = {
   type: 'success',
 };
 
-export const ToastProvider: React.FC<IChildren> = ({ children }) => {
+export const ToastProvider = ({ children }: IChildren) => {
   const [toastState, dispatch] = useReducer(toastReducer, initialState);
 
   const toggleToast = (open: boolean, text: string = '', type: ToastType = 'success') => {
