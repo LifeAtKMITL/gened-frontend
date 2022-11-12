@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Fonts */
+
+@font-face {
+  font-family: 'sukhumvit';
+  src: url('assets/fonts/sukhumvit-set/SukhumvitSet-Text.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'sukhumvit-semibold';
+  src: url('assets/fonts/sukhumvit-set/SukhumvitSet-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'sukhumvit-bold';
+  src: url('assets/fonts/sukhumvit-set/SukhumvitSet-Bold.ttf') format('truetype');
+}
+
+/* Default Setup */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'sukhumvit', sans-serif;
+}
+
+.sukhumvit-semibold {
+  font-family: 'sukhumvit-semibold';
+}
+
+.sukhumvit-bold {
+  font-family: 'sukhumvit-bold';
+}
