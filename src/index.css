@@ -80,3 +80,11 @@
   border-radius: 20px;
   text-transform: capitalize;
 }
+
+/* Accordion */
+
+.accordion .MuiPaper-root {
+  background-color: #141519;
+  border: 1px solid #242227;
+  color: white;
+}
