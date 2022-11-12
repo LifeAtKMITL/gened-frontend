@@ -8,7 +8,7 @@ import SecBadge from './Secbadge';
 import { CircularProgress } from '@mui/material';
 
 interface Props {
-  setIsToggle: SetStateAction<Dispatch<boolean>>;
+  setIsToggle: Dispatch<SetStateAction<boolean>>;
 }
 
 const DrawerContent = ({ setIsToggle }: Props) => {
