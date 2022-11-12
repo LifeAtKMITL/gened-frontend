@@ -25,6 +25,6 @@ export interface IOption {
 }
 
 export interface ISubjectState {
-  subjects: ISubjectCard[];
+  subjects: ISubject[];
   options: IOption[];
 }
