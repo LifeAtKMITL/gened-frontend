@@ -1,0 +1,40 @@
+import React from 'react';
+import { IClass } from 'types/subject';
+
+interface ICarousel {
+  gened: IClass[];
+}
+
+const Carousel = ({ gened }: ICarousel) => {
+  return (
+    <>
+      {gened.map((subject, index) => (
+        <div key={index} className='bg-background border border-card'>
+          <div className='w-[85vw] p-4 text-white'>
+            <header>
+              <h2 className='text-primary truncate'>{subject.name}</h2>
+              <p>
+                {subject.subjectId} <span className='text-[12px]'>( {subject.credit} หน่วยกิต )</span>
+              </p>
+            </header>
+
+            <div className='mt-2'>
+              <h4>วันเรียน</h4>
+              <h4 className='text-zinc-300'>{subject.classDateTime_v}</h4>
+            </div>
+            <div className='mt-1.5'>
+              <h4>วันสอบกลางภาค</h4>
+              <h4 className='text-zinc-300'>{subject.midtermDateTime_v || 'ไม่มีการสอบกลางภาค'} </h4>
+            </div>
+            <div className='mt-1.5'>
+              <h4>วันสอบปลายภาค</h4>
+              <h4 className='text-zinc-300'>{subject.finalDateTime_v || 'ไม่มีการสอบกลางภาค'}</h4>
+            </div>
+          </div>
+        </div>
+      ))}
+    </>
+  );
+};
+
+export default Carousel;
