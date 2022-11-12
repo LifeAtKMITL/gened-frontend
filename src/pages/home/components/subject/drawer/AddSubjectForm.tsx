@@ -7,12 +7,12 @@ import { ISubject } from 'types/subject';
 import axios from 'utils/axios';
 
 interface IAddSubjectForm {
-  // setSubjectCards: React.Dispatch<SetStateAction<ISubject[]>>;
-  // setSubjectSelected: React.Dispatch<SetStateAction<ISubject | undefined>>;
+  setSubject: React.Dispatch<SetStateAction<ISubject[]>>;
+  setSubjectSelected: React.Dispatch<SetStateAction<ISubject | undefined>>;
   setLoading: React.Dispatch<SetStateAction<boolean>>;
 }
 
-const AddSubjectForm = ({ setLoading }: IAddSubjectForm) => {
+const AddSubjectForm = ({ setLoading, setSubject, setSubjectSelected }: IAddSubjectForm) => {
   const {
     control,
     watch,
@@ -31,12 +31,12 @@ const AddSubjectForm = ({ setLoading }: IAddSubjectForm) => {
   /* Fetching Data */
   const fetchSubject = async (id: string) => {
     setLoading(true);
-    const { data: subjects } = await axios.get<ISubject>(`/subject/${id}`);
+    const { data: subjects } = await axios.get<ISubject[]>(`/subject/${id}`);
     console.log(subjects);
     setLoading(false);
 
-    // setSubjectCards(subjects);
-    // setSubjectSelected(subjects[0]);
+    setSubject(subjects);
+    setSubjectSelected(subjects[0]);
   };
 
   return (
