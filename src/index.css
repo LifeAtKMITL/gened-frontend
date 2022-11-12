@@ -87,4 +87,13 @@
   background-color: #141519;
   border: 1px solid #242227;
   color: white;
+  border-radius: 0;
+}
+
+.accordion .MuiPaper-root:last-child {
+  border-radius: 0 0 15px 15px;
+}
+
+.accordion .MuiPaper-root:nth-child(1) {
+  border-radius: 15px 15px 0 0;
 }

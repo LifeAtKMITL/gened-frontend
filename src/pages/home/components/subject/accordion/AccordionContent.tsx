@@ -24,7 +24,7 @@ const AccordionContent = (): JSX.Element => {
   if (subjects.length === 0) return <DisableBox line1='ยังไม่มีวิชาเรียน' />;
 
   return (
-    <div>
+    <div className='min-h-[30vh]'>
       {subjects.map((subject) => (
         <Accordion
           key={subject.theory.subjectId}

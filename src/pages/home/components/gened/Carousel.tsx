@@ -19,16 +19,16 @@ const Carousel = ({ gened }: ICarousel) => {
             </header>
 
             <div className='mt-2'>
-              <h4>วันเรียน</h4>
-              <h4 className='text-zinc-300'>{subject.classDateTime_v}</h4>
+              <h4 className='text-sm'>วันเรียน</h4>
+              <h4 className='text-zinc-300 text-sm'>{subject.classDateTime_v}</h4>
             </div>
             <div className='mt-1.5'>
-              <h4>วันสอบกลางภาค</h4>
-              <h4 className='text-zinc-300'>{subject.midtermDateTime_v || 'ไม่มีการสอบกลางภาค'} </h4>
+              <h4 className='text-sm'>วันสอบกลางภาค</h4>
+              <h4 className='text-zinc-300 text-sm'>{subject.midtermDateTime_v || 'ไม่มีการสอบกลางภาค'} </h4>
             </div>
             <div className='mt-1.5'>
-              <h4>วันสอบปลายภาค</h4>
-              <h4 className='text-zinc-300'>{subject.finalDateTime_v || 'ไม่มีการสอบกลางภาค'}</h4>
+              <h4 className='text-sm'>วันสอบปลายภาค</h4>
+              <h4 className='text-zinc-300 text-sm'>{subject.finalDateTime_v || 'ไม่มีการสอบกลางภาค'}</h4>
             </div>
           </div>
         </div>

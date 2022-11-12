@@ -37,7 +37,7 @@ const Gened = () => {
   };
 
   return (
-    <div className='h-full flex flex-col overflow-hidden'>
+    <div className='flex flex-col overflow-hidden mt-3'>
       {/* Header */}
       <header className='mt-4 mb-3 px-5 flex justify-between items-center text-white '>
         <h1 className=' text-lg sukhumvit-semibold '>
@@ -52,15 +52,15 @@ const Gened = () => {
       {/* Content */}
       <div className='w-screen flex-grow'>
         {loadingGened ? (
-          <div className='text-white px-5 h-full flex justify-center items-center'>
+          <div className='text-white px-5 h-60 flex justify-center items-center'>
             <CircularProgress sx={{ color: '#ff8934' }} />
           </div>
         ) : gened.length === 0 ? (
-          <div className='px-5 h-full'>
+          <div className='px-5'>
             <DisableBox line1='ยังไม่มีวิชาเลือก' line2 />
           </div>
         ) : (
-          <div className='w-screen h-full px-5 flex overflow-y-auto gap-2 '>
+          <div className='w-screen px-5 flex overflow-y-auto gap-3'>
             <Carousel gened={gened} />
           </div>
         )}
