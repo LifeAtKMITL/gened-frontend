@@ -6,6 +6,7 @@ import AddSubjectForm from './AddSubjectForm';
 import SubjectCard from './SubjectCard';
 import SecBadge from './Secbadge';
 import { CircularProgress } from '@mui/material';
+import useToast from 'hooks/useToast';
 
 interface Props {
   setIsToggle: Dispatch<SetStateAction<boolean>>;
@@ -13,6 +14,7 @@ interface Props {
 
 const DrawerContent = ({ setIsToggle }: Props) => {
   const { subjects, addSubject, removeSubject } = useSubject();
+  const { toggleToast } = useToast();
   const [loadingSubject, setLoadingSubject] = useState(false);
   const [subject, setSubject] = useState<ISubject[]>([]); // one subject but many sec
   const [subjectSelected, setSubjectSelected] = useState<ISubject>();
@@ -41,6 +43,7 @@ const DrawerContent = ({ setIsToggle }: Props) => {
     }
 
     addSubject(subjectSelected);
+    toggleToast(true, 'เพิ่มวิชาเรียนสำเร็จ');
     setIsToggle(false);
   };
 

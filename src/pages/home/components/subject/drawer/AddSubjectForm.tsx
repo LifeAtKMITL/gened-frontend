@@ -32,11 +32,10 @@ const AddSubjectForm = ({ setLoading, setSubject, setSubjectSelected }: IAddSubj
   const fetchSubject = async (id: string) => {
     setLoading(true);
     const { data: subjects } = await axios.get<ISubject[]>(`/subject/${id}`);
-    console.log(subjects);
-    setLoading(false);
 
     setSubject(subjects);
     setSubjectSelected(subjects[0]);
+    setLoading(false);
   };
 
   return (

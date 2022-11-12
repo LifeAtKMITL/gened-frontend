@@ -7,16 +7,19 @@ import axios from 'utils/axios';
 
 import Carousel from './Carousel';
 import { CircularProgress } from '@mui/material';
+import useToast from 'hooks/useToast';
 
 const Gened = () => {
   const { subjects } = useSubject();
+  const { toggleToast } = useToast();
   const [gened, setGened] = useState<IClass[]>([]);
   const [loadingGened, setLoadingGened] = useState(false);
 
   const fetchGened = async () => {
-    // if (subjects.length === 0) {
-    //   return;
-    // }
+    if (subjects.length === 0) {
+      toggleToast(true, 'ยังไม่ได้เลือกวิชาเรียน', 'error');
+      return;
+    }
 
     setLoadingGened(true);
 
@@ -31,7 +34,7 @@ const Gened = () => {
 
     // Fetch Gened
     const { data: gened } = await axios.post<IClass[]>('/subject/filter', merge);
-    console.log(gened);
+
     setGened(gened);
     setLoadingGened(false);
   };
@@ -44,8 +47,12 @@ const Gened = () => {
           วิชาเลือกที่ลงได้{' '}
           {gened.length !== 0 && <span className='text-gray-400 text-sm'>( {gened.length} วิชา )</span>}
         </h1>
-        <button onClick={fetchGened}>
-          <FiRefreshCcw className='text-primary' />
+        <button
+          onClick={fetchGened}
+          disabled={loadingGened}
+          className='text-primary active:text-orange-700 disabled:text-zinc-600'
+        >
+          <FiRefreshCcw className='' />
         </button>
       </header>
 
