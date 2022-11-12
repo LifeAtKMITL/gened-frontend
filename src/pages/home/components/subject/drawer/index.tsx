@@ -37,7 +37,7 @@ const SubjectDrawer = () => {
             <FaArrowLeft />
           </button>
 
-          <DrawerContent />
+          <DrawerContent setIsToggle={setIsToggle} />
         </div>
       </Drawer>
     </div>

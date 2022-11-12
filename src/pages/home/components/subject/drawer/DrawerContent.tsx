@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import useSubject from 'hooks/useSubject';
 import { ISubject } from 'types/subject';
 
 import AddSubjectForm from './AddSubjectForm';
@@ -6,7 +7,12 @@ import SubjectCard from './SubjectCard';
 import SecBadge from './Secbadge';
 import { CircularProgress } from '@mui/material';
 
-const DrawerContent = () => {
+interface Props {
+  setIsToggle: SetStateAction<Dispatch<boolean>>;
+}
+
+const DrawerContent = ({ setIsToggle }: Props) => {
+  const { subjects, addSubject, removeSubject } = useSubject();
   const [loadingSubject, setLoadingSubject] = useState(false);
   const [subject, setSubject] = useState<ISubject[]>([]); // one subject but many sec
   const [subjectSelected, setSubjectSelected] = useState<ISubject>();
@@ -19,8 +25,23 @@ const DrawerContent = () => {
     }
   }, [subjectSelected]);
 
+  // Add User's subjects
   const handleAddSubject = () => {
-    console.log('subject added');
+    if (!subjectSelected) return;
+
+    // Handle duplicate subject
+    const subjectIds = subjects.map((subject) => subject.theory.subjectId);
+    const isDuplicate = subjectIds.includes(subjectSelected.theory.subjectId);
+    if (isDuplicate) {
+      if (!confirm('มีวิชานี้อยู่แล้ว ทับไปเลยมั้ย ?')) {
+        return;
+      }
+
+      removeSubject(subjectSelected.theory.subjectId);
+    }
+
+    addSubject(subjectSelected);
+    setIsToggle(false);
   };
 
   return (
