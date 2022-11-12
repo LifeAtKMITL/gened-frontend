@@ -27,6 +27,18 @@ const DrawerContent = ({ setIsToggle }: Props) => {
     }
   }, [subjectSelected]);
 
+  // Change object when secSelected change
+  useEffect(() => {
+    if (secSelected) {
+      var index = subject
+        .map(function (subject) {
+          return subject.theory.sec;
+        })
+        .indexOf(secSelected);
+      setSubjectSelected(subject[index]);
+    }
+  }, [secSelected]);
+
   // Add User's subjects
   const handleAddSubject = () => {
     if (!subjectSelected) return;
