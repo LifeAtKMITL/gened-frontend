@@ -6,11 +6,14 @@ import axios from 'utils/axios';
 import { IProfileData } from 'types/profile';
 import { LoadingPage } from 'components/fallback';
 import { AiOutlineClose } from 'react-icons/ai';
+import { CircularProgress } from '@mui/material';
+import DisableBox from 'components/common/DisableBox';
 
 const Profile = () => {
   const [data, setData] = useState<IProfileData>();
   const [expand, setExpand] = useState<boolean[]>([]);
   const [loading, setLoading] = useState(false);
+  const [favoriteLoading, setFavoriteLoading] = useState(false);
 
   useEffect(() => {
     initProfile();
@@ -35,7 +38,7 @@ const Profile = () => {
       expand.push(false);
     });
     setExpand(expand);
-    console.log('expand', expand);
+    setFavoriteLoading(false);
   };
 
   const handleDelete = async (subjectId: string, sec: string) => {
@@ -43,7 +46,7 @@ const Profile = () => {
       subjectId: subjectId,
       sec: sec,
     };
-
+    setFavoriteLoading(true);
     await axios.delete('/user/subject/favorite', {
       headers: {
         Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwZjk1NTdiMDlmMTI0N2U0ZGUyYmYzYjFjYjcyNjc5ZSIsImlhdCI6MTY2ODAwMTgyOSwiZXhwIjoxNjcwNTkzODI5fQ.hj-m3KVnEx6hwPjJGOqkAnBZIFocOB8B8Ey_j5uuoTA`,
@@ -61,10 +64,15 @@ const Profile = () => {
       ) : (
         <div className='w-screen min-h-screen pt-6 pb-14 bg-background'>
           <ProfileHeader />
-          <div className='px-4'>
+          <div className='px-4 flex flex-col items-center'>
             <h1 className='text-2xl text-white sukhumvit-semibold text-center mb-4'>My Profile</h1>
-            <div className='profile-card bg-card flex items-center gap-2'>
-              <img src={data?.image} width='60' height='60' className='h-fit my-auto rounded-full bg-body shadow-lg' />
+            <div className='profile-card bg-transparent border border-zinc-400 w-fit pr-4 flex items-center gap-2'>
+              <img
+                src={data?.image}
+                width='60'
+                height='60'
+                className='h-fit my-auto rounded-full bg-slate-400 shadow-lg'
+              />
               <div className='flex flex-col'>
                 <div className='sukhumvit-semibold  text-lg text-white'>{data?.username}</div>
                 <div className='text-sm text-gray-400'>(auto generated)</div>
@@ -81,39 +89,70 @@ const Profile = () => {
                 <span className='sukhumvit-semibold text-gray-400 text-sm'>&nbsp;(คุณไม่มีวิชาที่ชื่นชอบ)</span>
               )}
             </section>
-            <div className='max-h-[60vh] overflow-auto'>
-              {data?.favGenEd.map(({ subjectId, sec }, index) => {
-                return (
-                  <div
-                    className={`text-white bg-transparent border border-body px-4 py-2 mb-2 
-                    rounded-lg transition-all duration-500`}
-                    key={subjectId + sec}
-                    onClick={() => {
-                      expand.forEach((item, i) => {
-                        if (i !== index) expand[i] = false;
-                      });
-                      expand[index] = !expand[index];
-                      setExpand([...expand]);
-                    }}
-                  >
-                    <div className='flex justify-between items-center'>
-                      <h4 className='text-primary'>รหัสวิชา {subjectId}</h4>
-                      <button onClick={() => handleDelete(subjectId, sec)}>
-                        <AiOutlineClose className='text-base' />
-                      </button>
-                    </div>
-                    <h4>กลุ่มเรียน {sec}</h4>
-                    {expand[index] && (
-                      <div>
-                        <div>Tuesday, 09:00 - 12:00</div>
-                        <div>27th September 2020, 09:00 - 12:00</div>
-                        <div>27th September 2020, 09:00 - 12:00</div>
-                      </div>
-                    )}
+            {data?.favGenEd.length === 0 ? (
+              <div>
+                <DisableBox line1='ยังไม่มีวิชาที่ชื่นชอบ' line2={false} />
+              </div>
+            ) : (
+              <div className='max-h-[60vh] overflow-auto transition-all duration-500'>
+                {favoriteLoading ? (
+                  <div className='flex justify-center items-center'>
+                    <CircularProgress sx={{ color: '#ff8934' }} />
                   </div>
-                );
-              })}
-            </div>
+                ) : (
+                  data?.favGenEd.map(
+                    ({ subjectId, name, sec, classDateTime_v, midtermDateTime_v, finalDateTime_v }, index) => {
+                      return (
+                        <div
+                          className={`text-white bg-transparent border border-body px-4 py-2 mb-2 
+                    rounded-lg transitiona-all ease-linear`}
+                          key={subjectId + sec}
+                          onClick={() => {
+                            expand.forEach((item, i) => {
+                              if (i !== index) expand[i] = false;
+                            });
+                            expand[index] = !expand[index];
+                            setExpand([...expand]);
+                          }}
+                        >
+                          <div className='grid grid-cols-[95fr_5fr] gap-1 w-full relative'>
+                            <h4 className='text-primary  text-ellipsis whitespace-nowrap overflow-hidden'>
+                              <span className='sukhumvit-semibold'>{name}</span>
+                            </h4>
+                            <button onClick={() => handleDelete(subjectId, sec)}>
+                              <AiOutlineClose className='text-base' />
+                            </button>
+                          </div>
+                          <h4>
+                            {subjectId} กลุ่มเรียน {sec}
+                          </h4>
+                          {/* {expand[index] && ( */}
+                          <div
+                            className={`mt-2 text-sm text-zinc-300 transition-all ease-linear ${
+                              expand[index] ? ' ' : 'hidden '
+                            }`}
+                          >
+                            <div>
+                              <span className='sukhumvit-semibold text-white'>วันเวลาเรียน </span>
+                              {classDateTime_v}
+                            </div>
+                            <div>
+                              <span className='sukhumvit-semibold text-white'>กลางภาค </span>
+                              {midtermDateTime_v || 'ไม่มีการสอบกลางภาค'}
+                            </div>
+                            <div>
+                              <span className='sukhumvit-semibold text-white'>ปลายภาค </span>
+                              {finalDateTime_v || 'ไม่มีการสอบปลายภาค'}
+                            </div>
+                          </div>
+                          {/* )} */}
+                        </div>
+                      );
+                    },
+                  )
+                )}
+              </div>
+            )}
           </div>
         </div>
       )}
