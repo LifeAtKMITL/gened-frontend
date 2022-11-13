@@ -97,3 +97,8 @@
 .accordion .MuiPaper-root:nth-child(1) {
   border-radius: 15px 15px 0 0;
 }
+
+/* profile */
+.profile-card {
+  border-radius: 50px 30px 30px 50px;
+}
