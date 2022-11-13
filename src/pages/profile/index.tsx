@@ -8,6 +8,7 @@ import { LoadingPage } from 'components/fallback';
 import { AiOutlineClose } from 'react-icons/ai';
 import { CircularProgress } from '@mui/material';
 import DisableBox from 'components/common/DisableBox';
+import { classNames } from 'utils/classNames';
 
 const Profile = () => {
   const [data, setData] = useState<IProfileData>();
@@ -66,7 +67,7 @@ const Profile = () => {
           <ProfileHeader />
           <div className='px-4 flex flex-col items-center'>
             <h1 className='text-2xl text-white sukhumvit-semibold text-center mb-4'>My Profile</h1>
-            <div className='profile-card bg-transparent border border-zinc-400 w-fit pr-4 flex items-center gap-2'>
+            <div className='profile-card bg-transparent border-zinc-400 w-fit pr-6 flex items-center gap-4'>
               <img
                 src={data?.image}
                 width='60'
@@ -75,7 +76,7 @@ const Profile = () => {
               />
               <div className='flex flex-col'>
                 <div className='sukhumvit-semibold  text-lg text-white'>{data?.username}</div>
-                <div className='text-sm text-gray-400'>(auto generated)</div>
+                <div className='text-sm text-gray-400'>is your pokémon persona.</div>
               </div>
             </div>
           </div>
@@ -96,7 +97,7 @@ const Profile = () => {
             ) : (
               <div className='max-h-[60vh] overflow-auto transition-all duration-500'>
                 {favoriteLoading ? (
-                  <div className='flex justify-center items-center'>
+                  <div className='flex mt-6 justify-center items-center'>
                     <CircularProgress sx={{ color: '#ff8934' }} />
                   </div>
                 ) : (
@@ -126,11 +127,11 @@ const Profile = () => {
                           <h4>
                             {subjectId} กลุ่มเรียน {sec}
                           </h4>
-                          {/* {expand[index] && ( */}
                           <div
-                            className={`mt-2 text-sm text-zinc-300 transition-all ease-linear ${
-                              expand[index] ? ' ' : 'hidden '
-                            }`}
+                            className={classNames(
+                              `mt-2 text-sm text-zinc-300 transition-all max-h-0 overflow-hidden`,
+                              expand[index] ? `max-h-screen` : ` `,
+                            )}
                           >
                             <div>
                               <span className='sukhumvit-semibold text-white'>วันเวลาเรียน </span>
@@ -145,7 +146,6 @@ const Profile = () => {
                               {finalDateTime_v || 'ไม่มีการสอบปลายภาค'}
                             </div>
                           </div>
-                          {/* )} */}
                         </div>
                       );
                     },
