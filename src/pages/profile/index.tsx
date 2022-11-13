@@ -27,15 +27,19 @@ const Profile = () => {
   };
 
   const fetchSubject = async () => {
-    const { data } = await axios.get<IProfileData>('/user/profile/subject');
-    // console.log(data);
-    setData(data);
-    setExpand([]);
-    data.favGenEd.forEach((item) => {
-      expand.push(false);
-    });
-    setExpand(expand);
-    setFavoriteLoading(false);
+    try {
+      const { data } = await axios.get<IProfileData>('/user/profile/subject');
+      // console.log(data);
+      setData(data);
+      setExpand([]);
+      data.favGenEd.forEach((item) => {
+        expand.push(false);
+      });
+      setExpand(expand);
+      setFavoriteLoading(false);
+    } catch (error) {
+      alert(error);
+    }
   };
 
   const handleDelete = async (subjectId: string, sec: string) => {

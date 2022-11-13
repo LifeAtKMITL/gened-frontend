@@ -41,7 +41,7 @@ const AuthProvider = ({ children }: IChildren) => {
     }
   };
 
-  // if (!isReady || loadingToken) return <LoadingPage />;
+  if (!isReady || loadingToken) return <LoadingPage />;
 
   return (
     <>
