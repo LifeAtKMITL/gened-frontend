@@ -27,19 +27,19 @@ const Profile = () => {
   };
 
   const fetchSubject = async () => {
-    const { data } = await axios.get<IProfileData>('/user/profile/subject', {
-      headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwZjk1NTdiMDlmMTI0N2U0ZGUyYmYzYjFjYjcyNjc5ZSIsImlhdCI6MTY2ODAwMTgyOSwiZXhwIjoxNjcwNTkzODI5fQ.hj-m3KVnEx6hwPjJGOqkAnBZIFocOB8B8Ey_j5uuoTA`,
-      },
-    });
-    // console.log(data);
-    setData(data);
-    setExpand([]);
-    data.favGenEd.forEach((item) => {
-      expand.push(false);
-    });
-    setExpand(expand);
-    setFavoriteLoading(false);
+    try {
+      const { data } = await axios.get<IProfileData>('/user/profile/subject');
+      // console.log(data);
+      setData(data);
+      setExpand([]);
+      data.favGenEd.forEach((item) => {
+        expand.push(false);
+      });
+      setExpand(expand);
+      setFavoriteLoading(false);
+    } catch (error) {
+      alert(error);
+    }
   };
 
   const handleDelete = async (subjectId: string, sec: string) => {
@@ -49,9 +49,6 @@ const Profile = () => {
     };
     setFavoriteLoading(true);
     await axios.delete('/user/subject/favorite', {
-      headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwZjk1NTdiMDlmMTI0N2U0ZGUyYmYzYjFjYjcyNjc5ZSIsImlhdCI6MTY2ODAwMTgyOSwiZXhwIjoxNjcwNTkzODI5fQ.hj-m3KVnEx6hwPjJGOqkAnBZIFocOB8B8Ey_j5uuoTA`,
-      },
       data,
     });
 
