@@ -9,8 +9,10 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { CircularProgress } from '@mui/material';
 import DisableBox from 'components/common/DisableBox';
 import { classNames } from 'utils/classNames';
+import useProfile from 'hooks/useProfile';
 
 const Profile = () => {
+  const { setProfile } = useProfile();
   const [data, setData] = useState<IProfileData>();
   const [expand, setExpand] = useState<boolean[]>([]);
   const [loading, setLoading] = useState(false);
@@ -30,6 +32,7 @@ const Profile = () => {
     try {
       const { data } = await axios.get<IProfileData>('/user/profile/subject');
       // console.log(data);
+      setProfile(data);
       setData(data);
       setExpand([]);
       data.favGenEd.forEach((item) => {
