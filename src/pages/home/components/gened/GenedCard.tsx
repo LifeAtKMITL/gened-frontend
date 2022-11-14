@@ -19,16 +19,7 @@ const GenedCard = ({ subject }: IGenedCard) => {
     }
 
     setIsFav((prev) => !prev);
-    // await axios.put(
-    //   '/user/subject/favorite',
-    //   { subjectId, sec },
-    //   {
-    //     headers: {
-    //       Authorization:
-    //         'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwZjk1NTdiMDlmMTI0N2U0ZGUyYmYzYjFjYjcyNjc5ZSIsImlhdCI6MTY2ODAwMTgyOSwiZXhwIjoxNjcwNTkzODI5fQ.hj-m3KVnEx6hwPjJGOqkAnBZIFocOB8B8Ey_j5uuoTA',
-    //     },
-    //   },
-    // );
+    await axios.put('/user/subject/favorite', { subjectId, sec });
   };
 
   return (
