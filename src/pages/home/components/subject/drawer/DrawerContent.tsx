@@ -68,19 +68,22 @@ const DrawerContent = ({ setIsToggle }: Props) => {
           <CircularProgress sx={{ color: '#ff8934' }} />
         </div>
       ) : (
-        <div className='mt-8'>
+        <div className='mt-6'>
           {subjectSelected && (
             <>
               {/* Sec Badge */}
-              <div className='flex gap-2'>
-                {subject.map((sec) => (
-                  <SecBadge
-                    key={sec.theory.sec}
-                    sec={sec.theory.sec}
-                    secSelected={secSelected}
-                    setSecSelected={setSecSelected}
-                  />
-                ))}
+              <div className=''>
+                <h1 className='mb-3'>เลือกกลุ่มเรียน : </h1>
+                <div className='flex gap-2'>
+                  {subject.map((sec) => (
+                    <SecBadge
+                      key={sec.theory.sec}
+                      sec={sec.theory.sec}
+                      secSelected={secSelected}
+                      setSecSelected={setSecSelected}
+                    />
+                  ))}
+                </div>
               </div>
 
               {/* Subject Card */}
