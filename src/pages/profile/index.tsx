@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaArrowLeft, FaTrash, FaTrashAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import ProfileHeader from './header';
+import ProfileHeader from './components/header';
 import axios from 'utils/axios';
 import { IProfileData } from 'types/profile';
 import { LoadingPage } from 'components/fallback';
@@ -66,7 +66,7 @@ const Profile = () => {
         <div className='w-screen min-h-screen pt-6 pb-14 bg-background'>
           <ProfileHeader />
           <div className='px-4 flex flex-col items-center'>
-            <h1 className='text-2xl text-white sukhumvit-semibold text-center mb-4'>My Profile</h1>
+            {/* <h1 className='text-2xl text-white sukhumvit-semibold text-center mb-4'>My Profile</h1> */}
             <div className='profile-card bg-transparent border-zinc-400 w-fit pr-6 flex items-center gap-4'>
               <img
                 src={data?.image}
