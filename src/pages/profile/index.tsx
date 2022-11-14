@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { FaArrowLeft, FaTrash, FaTrashAlt } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
 import ProfileHeader from './components/header';
 import axios from 'utils/axios';
 import { IProfileData } from 'types/profile';
