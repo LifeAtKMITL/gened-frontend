@@ -10,3 +10,7 @@ export interface IProfileData {
   image: string;
   favGenEd: IClass[];
 }
+
+export interface IProfileState {
+  profile: IProfileData;
+}

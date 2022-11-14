@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IClass } from 'types/subject';
 import { HiOutlineHeart, HiHeart } from 'react-icons/hi';
 import axios from 'utils/axios';
 import { classNames } from 'utils/classNames';
 import useToast from 'hooks/useToast';
+import useProfile from 'hooks/useProfile';
 
 interface IGenedCard {
   subject: IClass;
 }
 
 const GenedCard = ({ subject }: IGenedCard) => {
+  const { profile } = useProfile();
   const { toggleToast } = useToast();
   const [isFav, setIsFav] = useState(false);
 
@@ -19,17 +21,15 @@ const GenedCard = ({ subject }: IGenedCard) => {
     }
 
     setIsFav((prev) => !prev);
-    // await axios.put(
-    //   '/user/subject/favorite',
-    //   { subjectId, sec },
-    //   {
-    //     headers: {
-    //       Authorization:
-    //         'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlUwZjk1NTdiMDlmMTI0N2U0ZGUyYmYzYjFjYjcyNjc5ZSIsImlhdCI6MTY2ODAwMTgyOSwiZXhwIjoxNjcwNTkzODI5fQ.hj-m3KVnEx6hwPjJGOqkAnBZIFocOB8B8Ey_j5uuoTA',
-    //     },
-    //   },
-    // );
+    await axios.put('/user/subject/favorite', { subjectId, sec });
   };
+
+  useEffect(() => {
+    if (profile.favGenEd.length == 0) return;
+
+    const isInclude = profile.favGenEd.find((s) => s.subjectId + s.sec === subject.subjectId + subject.sec);
+    if (isInclude) setIsFav(true);
+  }, []);
 
   return (
     <div className='bg-background border border-card rounded-lg'>
@@ -37,7 +37,11 @@ const GenedCard = ({ subject }: IGenedCard) => {
         <header>
           <h2 className='text-primary truncate w-[89%]'>{subject.name}</h2>
           <p>
-            {subject.subjectId} <span className='text-[12px]'>( {subject.credit} หน่วยกิต )</span>
+            {subject.subjectId}{' '}
+            <span className='text-[12px]'>
+              {' '}
+              เซค {subject.sec} ( {subject.credit} หน่วยกิต )
+            </span>
           </p>
         </header>
 
