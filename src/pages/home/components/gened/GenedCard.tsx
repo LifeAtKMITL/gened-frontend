@@ -11,7 +11,7 @@ interface IGenedCard {
 }
 
 const GenedCard = ({ subject }: IGenedCard) => {
-  const { profile } = useProfile();
+  const { favGenEd } = useProfile();
   const { toggleToast } = useToast();
   const [isFav, setIsFav] = useState(false);
 
@@ -25,9 +25,9 @@ const GenedCard = ({ subject }: IGenedCard) => {
   };
 
   useEffect(() => {
-    if (profile.favGenEd.length == 0) return;
+    if (favGenEd.length == 0) return;
 
-    const isInclude = profile.favGenEd.find((s) => s.subjectId + s.sec === subject.subjectId + subject.sec);
+    const isInclude = favGenEd.find((s) => s.subjectId + s.sec === subject.subjectId + subject.sec);
     if (isInclude) setIsFav(true);
   }, []);
 

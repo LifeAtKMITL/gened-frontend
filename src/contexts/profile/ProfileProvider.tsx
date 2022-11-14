@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { IChildren } from 'types/component';
 import { IProfileData, IProfileState } from 'types/profile';
 import { ProfileContext } from './ProfileContext';
@@ -15,7 +15,15 @@ const ProfileProvider = ({ children }: IChildren) => {
     dispatch({ type: 'setProfile', payload: profile });
   };
 
-  return <ProfileContext.Provider value={{ ...profileState, setProfile }}>{children}</ProfileContext.Provider>;
+  const removeFavorite = (subjectId: string, sec: string) => {
+    dispatch({ type: 'removeFavorite', payload: { subjectId, sec } });
+  };
+
+  return (
+    <ProfileContext.Provider value={{ ...profileState, setProfile, removeFavorite }}>
+      {children}
+    </ProfileContext.Provider>
+  );
 };
 
 export default ProfileProvider;
