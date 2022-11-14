@@ -8,8 +8,11 @@ import axios from 'utils/axios';
 import Carousel from './Carousel';
 import { CircularProgress } from '@mui/material';
 import useToast from 'hooks/useToast';
+import { IProfileData } from 'types/profile';
+import useProfile from 'hooks/useProfile';
 
 const Gened = () => {
+  const { setProfile } = useProfile();
   const { subjects } = useSubject();
   const { toggleToast } = useToast();
   const [gened, setGened] = useState<IClass[]>([]);
@@ -34,8 +37,12 @@ const Gened = () => {
 
     // Fetch Gened
     const { data: gened } = await axios.post<IClass[]>('/subject/filter', merge);
-
     setGened(gened);
+
+    // ! Need fix : Parallel await or something like that ! //
+    const { data: profile } = await axios.get<IProfileData>('/user/profile/subject');
+    setProfile(profile);
+
     setLoadingGened(false);
   };
 

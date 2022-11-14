@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IClass } from 'types/subject';
 import { HiOutlineHeart, HiHeart } from 'react-icons/hi';
 import axios from 'utils/axios';
 import { classNames } from 'utils/classNames';
 import useToast from 'hooks/useToast';
+import useProfile from 'hooks/useProfile';
 
 interface IGenedCard {
   subject: IClass;
 }
 
 const GenedCard = ({ subject }: IGenedCard) => {
+  const { profile } = useProfile();
   const { toggleToast } = useToast();
   const [isFav, setIsFav] = useState(false);
 
@@ -22,13 +24,24 @@ const GenedCard = ({ subject }: IGenedCard) => {
     await axios.put('/user/subject/favorite', { subjectId, sec });
   };
 
+  useEffect(() => {
+    if (profile.favGenEd.length == 0) return;
+
+    const isInclude = profile.favGenEd.find((s) => s.subjectId + s.sec === subject.subjectId + subject.sec);
+    if (isInclude) setIsFav(true);
+  }, []);
+
   return (
     <div className='bg-background border border-card rounded-lg'>
       <div className='w-[85vw] p-4 text-white relative'>
         <header>
           <h2 className='text-primary truncate w-[89%]'>{subject.name}</h2>
           <p>
-            {subject.subjectId} <span className='text-[12px]'>( {subject.credit} หน่วยกิต )</span>
+            {subject.subjectId}{' '}
+            <span className='text-[12px]'>
+              {' '}
+              เซต {subject.sec} ( {subject.credit} หน่วยกิต )
+            </span>
           </p>
         </header>
 
