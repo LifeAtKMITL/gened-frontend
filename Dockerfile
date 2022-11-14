@@ -1,15 +1,15 @@
-FROM node:18-alpine AS builder
-WORKDIR /app
-COPY . .
-RUN yarn install
-RUN yarn run build
+# node (builder)
+FROM node:16-alpine AS builder
+WORKDIR /usr
 
-FROM nginx:1.16.0-alpine
-COPY --from=builder /app/dist /usr/share/nginx/html
+# For cache package and not npm install everytime
+COPY ./package* ./
+RUN npm install
 
-RUN rm /etc/nginx/conf.d/default.conf
-COPY deploy/nginx/nginx.conf /etc/nginx/conf.d
+COPY ./ ./
+RUN npm run build
 
+# nginx
+FROM nginx:1.23.2-alpine
+COPY --from=builder /usr/dist/ /usr/share/nginx/html
 EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
