@@ -9,8 +9,10 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { CircularProgress } from '@mui/material';
 import DisableBox from 'components/common/DisableBox';
 import { classNames } from 'utils/classNames';
+import useProfile from 'hooks/useProfile';
 
 const Profile = () => {
+  const { setProfile } = useProfile();
   const [data, setData] = useState<IProfileData>();
   const [expand, setExpand] = useState<boolean[]>([]);
   const [loading, setLoading] = useState(false);
@@ -30,6 +32,7 @@ const Profile = () => {
     try {
       const { data } = await axios.get<IProfileData>('/user/profile/subject');
       // console.log(data);
+      setProfile(data);
       setData(data);
       setExpand([]);
       data.favGenEd.forEach((item) => {
@@ -62,23 +65,17 @@ const Profile = () => {
       ) : (
         <div className='w-screen min-h-screen pt-6 pb-14 bg-background'>
           <ProfileHeader />
-          <div className='px-4 flex flex-col items-center'>
-            <h1 className='text-2xl text-white sukhumvit-semibold text-center mb-4'>My Profile</h1>
-            <div className='profile-card bg-transparent border-zinc-400 w-fit pr-6 flex items-center gap-4'>
-              <img
-                src={data?.image}
-                width='60'
-                height='60'
-                className='h-fit my-auto rounded-full bg-slate-400 shadow-lg'
-              />
-              <div className='flex flex-col'>
-                <div className='sukhumvit-semibold  text-lg text-white'>{data?.username}</div>
+          <div className='px-4 pt-6 mb-8 flex flex-col items-center'>
+            <div className='flex flex-col items-center'>
+              <img src={data?.image} className='w-32 h-32 mb-2' />
+              <div className='text-center'>
+                <div className='sukhumvit-semibold text-lg text-white'>{data?.username}</div>
                 <div className='text-sm text-gray-400'>is your pokémon persona.</div>
               </div>
             </div>
           </div>
 
-          <div className='mt-6 px-4 text-white'>
+          <div className='px-4 text-white'>
             <section className='mb-3 sukhumvit-semibold text-lg'>
               วิชาที่ชื่นชอบของฉัน{' '}
               {data?.favGenEd.length !== 0 ? (
