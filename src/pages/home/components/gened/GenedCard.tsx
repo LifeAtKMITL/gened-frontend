@@ -40,7 +40,7 @@ const GenedCard = ({ subject }: IGenedCard) => {
             {subject.subjectId}{' '}
             <span className='text-[12px]'>
               {' '}
-              เซต {subject.sec} ( {subject.credit} หน่วยกิต )
+              เซค {subject.sec} ( {subject.credit} หน่วยกิต )
             </span>
           </p>
         </header>
