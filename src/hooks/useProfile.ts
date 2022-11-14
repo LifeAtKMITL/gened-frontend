@@ -2,9 +2,9 @@ import { ProfileContext } from 'contexts/profile/ProfileContext';
 import React, { useContext } from 'react';
 
 const useProfile = () => {
-  const context = useContext(ProfileContext);
+  const { profile, setProfile, removeFavorite } = useContext(ProfileContext);
 
-  return context;
+  return { ...profile, setProfile, removeFavorite };
 };
 
 export default useProfile;
