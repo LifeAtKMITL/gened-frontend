@@ -5,6 +5,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import useSubject from 'hooks/useSubject';
 import { AiOutlineClose } from 'react-icons/ai';
 import DisableBox from 'components/common/DisableBox';
+import { getDay } from 'services/subject';
 
 const AccordionContent = (): JSX.Element => {
   const { subjects, removeSubject } = useSubject();
@@ -42,12 +43,65 @@ const AccordionContent = (): JSX.Element => {
             </div>
           </AccordionSummary>
           <AccordionDetails>
-            <p>sec: {subject.theory.sec}</p>
-            <p>{subject.theory.classDateTime_v}</p>
-            <p>{subject.theory.midtermDateTime_v}</p>
-            <p>{subject.theory.finalDateTime_v}</p>
-            <p>credit: {subject.theory.credit}</p>
-            <p>Instructor: {subject.theory.teachers}</p>
+            <p className='text-sm'>
+              <span className='text-primary'>ภาคทฤษฏี</span> เซค {subject.theory.sec} ({subject.theory.credit} หน่วยกิต)
+            </p>
+
+            <div className='mt-2'>
+              <h4 className='text-sm'>วันเรียน</h4>
+              <h4 className='text-sm' style={{ color: getDay(subject.theory.classDateTime_v) }}>
+                {subject.theory.classDateTime_v}
+              </h4>
+            </div>
+
+            <div className='mt-1.5'>
+              <h4 className='text-sm'>วันสอบกลางภาค</h4>
+              <h4 className='text-zinc-300 text-sm'>{subject.theory.midtermDateTime_v || 'ไม่มีการสอบกลางภาค'} </h4>
+            </div>
+
+            <div className='mt-1.5'>
+              <h4 className='text-sm'>วันสอบปลายภาค</h4>
+              <h4 className='text-zinc-300 text-sm'>{subject.theory.finalDateTime_v || 'ไม่มีการสอบกลางภาค'}</h4>
+            </div>
+
+            <div className='mt-1.5'>
+              <h4 className='text-sm'>อาจารย์</h4>
+              <h4 className='text-zinc-300 text-sm'>
+                {subject.theory.teachers.substring(0, subject.theory.teachers.length - 2)}
+              </h4>
+            </div>
+
+            {subject.lab && (
+              <div className='mt-4'>
+                <p className='text-sm'>
+                  <span className='text-primary'>ภาคปฏิบัติ</span> เซค {subject.lab.sec}
+                </p>
+
+                <div className='mt-2'>
+                  <h4 className='text-sm'>วันเรียน</h4>
+                  <h4 className='text-zinc-300 text-sm' style={{ color: getDay(subject.lab.classDateTime_v) }}>
+                    {subject.lab.classDateTime_v}
+                  </h4>
+                </div>
+
+                <div className='mt-1.5'>
+                  <h4 className='text-sm'>วันสอบกลางภาค</h4>
+                  <h4 className='text-zinc-300 text-sm'>{subject.lab.midtermDateTime_v || 'ไม่มีการสอบกลางภาค'} </h4>
+                </div>
+
+                <div className='mt-1.5'>
+                  <h4 className='text-sm'>วันสอบปลายภาค</h4>
+                  <h4 className='text-zinc-300 text-sm'>{subject.lab.finalDateTime_v || 'ไม่มีการสอบกลางภาค'}</h4>
+                </div>
+
+                <div className='mt-1.5'>
+                  <h4 className='text-sm'>อาจารย์</h4>
+                  <h4 className='text-zinc-300 text-sm'>
+                    {subject.lab.teachers.substring(0, subject.lab.teachers.length - 2)}
+                  </h4>
+                </div>
+              </div>
+            )}
           </AccordionDetails>
         </Accordion>
       ))}

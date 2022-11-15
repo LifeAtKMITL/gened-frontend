@@ -5,6 +5,7 @@ import axios from 'utils/axios';
 import { classNames } from 'utils/classNames';
 import useToast from 'hooks/useToast';
 import useProfile from 'hooks/useProfile';
+import { getDay } from 'services/subject';
 
 interface IGenedCard {
   subject: IClass;
@@ -47,7 +48,9 @@ const GenedCard = ({ subject }: IGenedCard) => {
 
         <div className='mt-2'>
           <h4 className='text-sm'>วันเรียน</h4>
-          <h4 className='text-zinc-300 text-sm'>{subject.classDateTime_v}</h4>
+          <h4 className='text-zinc-300 text-sm' style={{ color: getDay(subject.classDateTime_v) }}>
+            {subject.classDateTime_v}
+          </h4>
         </div>
 
         <div className='mt-1.5'>

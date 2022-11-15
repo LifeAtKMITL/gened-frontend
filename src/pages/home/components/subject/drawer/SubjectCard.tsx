@@ -1,4 +1,5 @@
 import React from 'react';
+import { getDay } from 'services/subject';
 import { ISubject } from 'types/subject';
 
 interface Props {
@@ -24,7 +25,7 @@ const SubjectCard: React.FC<Props> = ({ subject, secSelected }) => {
 
             <div>
               <h4 className='text-primary'>ภาคทฤษฏี</h4>
-              <h4 className='text-zinc-300'>{subject.theory.classDateTime_v}</h4>
+              <h4 style={{ color: getDay(subject.theory.classDateTime_v) }}>{subject.theory.classDateTime_v}</h4>
             </div>
             <div className='mt-1.5'>
               <h4>วันสอบกลางภาค</h4>
@@ -40,7 +41,7 @@ const SubjectCard: React.FC<Props> = ({ subject, secSelected }) => {
                 <br />
                 <div>
                   <h4 className='text-primary'>ภาคปฎิบัติ</h4>
-                  <h4 className='text-zinc-300'>{subject.lab.classDateTime_v}</h4>
+                  <h4 style={{ color: getDay(subject.lab.classDateTime_v) }}>{subject.lab.classDateTime_v}</h4>
                 </div>
                 <div className='mt-1.5'>
                   <h4>วันสอบกลางภาค</h4>
