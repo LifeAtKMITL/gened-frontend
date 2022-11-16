@@ -10,7 +10,7 @@ import ProfileProvider from 'contexts/profile/ProfileProvider';
 
 const App = () => {
   return (
-    <LiffProvider liffId='1657631189-Q7yGOJmZ'>
+    <LiffProvider liffId='1657631189-9wk8vxJA'>
       <BrowserRouter>
         <AuthProvider>
           <ProfileProvider>
