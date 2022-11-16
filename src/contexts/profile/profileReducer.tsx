@@ -17,7 +17,7 @@ export const profileReducer = (state: IProfileState, action: ProfileAction) => {
         profile: {
           ...state.profile,
           favGenEd: state.profile.favGenEd.filter(
-            ({ subjectId, sec }) => subjectId !== action.payload.subjectId && sec !== action.payload.sec,
+            (fav) => !(fav.subjectId === action.payload.subjectId && fav.sec === action.payload.sec),
           ),
         },
       };
