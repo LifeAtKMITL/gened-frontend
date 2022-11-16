@@ -17,10 +17,10 @@ const FavoriteGenEdAccordion = ({ expand, setExpand, favoriteLoading, setFavorit
   const { favGenEd, removeFavorite } = useProfile();
 
   const handleDelete = async (subjectId: string, sec: string) => {
-    setFavoriteLoading(true);
-    await axios.put('/user/subject/favorite', { subjectId, sec });
+    // setFavoriteLoading(true);
     removeFavorite(subjectId, sec);
-    setFavoriteLoading(false);
+    axios.put('/user/subject/favorite', { subjectId, sec });
+    // setFavoriteLoading(false);
   };
   return (
     <div className='px-4 text-white'>
