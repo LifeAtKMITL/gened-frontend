@@ -45,7 +45,7 @@ const AuthProvider = ({ children }: IChildren) => {
 
   return (
     <>
-      token: {token}
+      {/* token: {token} */}
       {children}
     </>
   );
